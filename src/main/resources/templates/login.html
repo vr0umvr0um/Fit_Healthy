@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fit & Healthy - Votre application Sport & Santé</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="icon" href="https://imgs.search.brave.com/4eokZt1calNcJ4NcILhu_mZG_Yql_unFL77fkCfS76k/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly93d3cu/dWRhZjA4LmNvbS93/cC1jb250ZW50L3Vw/bG9hZHMvMjAxNy8w/NC9pY29uLXNhbnRl/LXVuaW9uLWRlcGFy/dGVtYW50YWxlLWFz/c29jaWF0aW9ucy1m/YW1pbGlhbGVzLTMw/MHgzMDAucG5n" type="image/png">
+
+  <style>
+    /* Déclarations globales : variables de couleurs et thème */
+    :root {
+      --primary-color: #2ECC71;
+      --secondary-color: #3498DB;
+      --dark-color: #2C3E50;
+      --light-color: #ECF0F1;
+      --accent-color: #f39c12;
+    }
+
+    /* Configuration de base du corps de la page */
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-image: url('https://cdn.paris.fr/paris/2024/11/06/huge-2123256e72c772328ee142b041516f22.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      margin: 0;
+      color: black;
+      position: relative;
+      padding-top: 100px;
+    }
+
+    /* Ajout d'une superposition sombre pour améliorer la lisibilité */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.3);
+      z-index: -1;
+    }
+
+    /* Style personnalisé pour la barre de navigation fixe */
+    .navbar {
+      background: linear-gradient(to right, rgba(44, 62, 80, 0.95), rgba(52, 152, 219, 0.9)) !important;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      padding: 15px 0;
+      transition: all 0.4s ease;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Personnalisation de la marque affichée dans la barre de navigation */
+    .navbar-brand {
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      transition: transform 0.3s ease;
+      padding: 0 15px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .navbar-brand:hover {
+      transform: translateY(-2px);
+    }
+
+    /* Animation et style pour l'icône de la navbar */
+    .navbar-brand .fas {
+      color: var(--primary-color);
+      font-size: 1.2em;
+      margin-right: 10px;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    /* Apparence personnalisée des liens de navigation */
+    .navbar-dark .navbar-nav {
+      margin-left: 20px;
+    }
+
+    .navbar-dark .navbar-nav .nav-link {
+      color: rgba(255, 255, 255, 0.9) !important;
+      font-weight: 600;
+      padding: 8px 20px;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+      margin: 0 6px;
+      position: relative;
+      overflow: hidden;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      letter-spacing: 0.5px;
+    }
+
+    .navbar-dark .navbar-nav .nav-link:hover {
+      background-color: rgba(46, 204, 113, 0.2);
+      color: #fff !important;
+      transform: translateY(-2px);
+    }
+
+    /* Style du conteneur principal pour centraliser le contenu */
+    .container {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(236, 240, 241, 0.9));
+      padding: 35px;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+      margin-bottom: 40px;
+      border: 1px solid rgba(52, 152, 219, 0.2);
+      transition: all 0.4s ease;
+      max-width: 1200px;
+      position: relative;
+      overflow: hidden;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    /* Animation : apparition en fondu et translation vers le haut */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Style et mise en forme des titres principaux */
+    h1 {
+      color: var(--dark-color);
+      font-weight: 700;
+      margin-bottom: 35px;
+      position: relative;
+      padding-bottom: 15px;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 2.2rem;
+    }
+
+    /* Décoration graphique sous le titre */
+    h1:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 4px;
+      background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* En-tête des cartes avec un design gradient moderne */
+    .card-header {
+      background: linear-gradient(135deg, rgba(52, 152, 219, 0.8), rgba(46, 204, 113, 0.8));
+      color: white;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    /* Bouton principal stylisé avec effet d'ombre et transitions */
+    .btn-primary {
+      background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
+      border: none;
+      padding: 13px 30px;
+      border-radius: 12px;
+      font-weight: 600;
+      transition: all 0.3s;
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+      align-self: flex-end;
+      letter-spacing: 0.5px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+      background: linear-gradient(to right, #2980b9, #27ae60);
+    }
+
+    .btn-primary:active {
+      transform: translateY(1px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-primary i {
+      margin-right: 8px;
+      font-size: 1.1em;
+      vertical-align: middle;
+    }
+    
+    /* Alertes informatives : design moderne et épuré */
+    .alert-info {
+      background: linear-gradient(to right, rgba(46, 204, 113, 0.15), rgba(52, 152, 219, 0.15));
+      border-left: 5px solid var(--primary-color);
+      color: #27ae60;
+      border-radius: 12px;
+      padding: 20px;
+      font-weight: 500;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      position: relative;
+      overflow: hidden;
+      animation: slideInRight 0.5s ease-out;
+    }
+
+    .alert-info i {
+      font-size: 1.4em;
+      color: var(--primary-color);
+      vertical-align: middle;
+    }
+
+    /* Alertes d'avertissement : style raffiné pour attirer l'attention */
+    .alert-warning {
+      background: linear-gradient(to right, rgba(231, 76, 60, 0.15), rgba(192, 57, 43, 0.15));
+      border-left: 5px solid #e74c3c;
+      color: #e74c3c;
+      border-radius: 12px;
+      padding: 20px;
+      font-weight: 500;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      position: relative;
+      overflow: hidden;
+      animation: slideInRight 0.5s ease-out;
+    }
+
+    .alert-warning i {
+      font-size: 1.4em;
+      color: #e74c3c;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+  <!-- Barre de navigation principale avec liens d'accès -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" th:href="@{/index}">
+        <i class="fas fa-heartbeat"></i>Fit & Healthy
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Basculer la navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/register}">
+              <i class="fas fa-user-plus me-1"></i>Inscription
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/login}">
+              <i class="fas fa-sign-in-alt me-1"></i>Connexion
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Conteneur principal de la page de connexion -->
+  <div class="container">
+    <div class="row">
+      <h1>Connexion</h1>
+    </div>
+    <div th:if="${param.success}">
+      <div class="alert alert-info">
+        <i class="fas fa-check-circle me-2"></i>Vous vous êtes inscrit avec succès à notre application !
+      </div>
+    </div>
+    <div th:if="${param.error}">
+      <div class="alert alert-warning">
+        <i class="fas fa-exclamation-circle"></i> Email ou mot de passe invalide
+      </div>
+    </div>
+    <div th:if="${param.logout}">
+      <div class="alert alert-info">
+        <i class="fas fa-check-circle me-2"></i>Vous avez été déconnecté.
+      </div>
+    </div>
+    <form method="post" role="form" th:action="@{/login}">
+      <div class="form-group mb-3">
+        <label class="control-label">Email</label>
+        <input type="text" id="username" name="username" class="form-control" placeholder="Entrez votre adresse email" />
+      </div>
+      <div class="form-group mb-3">
+        <label class="control-label">Mot de passe</label>
+        <input type="password" id="password" name="password" class="form-control" placeholder="Entrez votre mot de passe" />
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Se connecter</button>
+    </form>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
