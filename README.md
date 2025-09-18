@@ -14,5 +14,3 @@ To launch this project, you will need to:
 6. Create a database named “fit_healthy.”
 7. Import the “fit_healthy.sql” file into this database.
 8. Return to your IDE and launch the application.
-
-## SCREENSHOTS
